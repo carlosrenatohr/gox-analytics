@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createEvents } from "../services/event.service";
 import { IEvent } from "../models/event.model";
+import { EventPayload } from "../types/event.type";
 
 // POST /api/v1/event
-export const postTrackEvent = async (req: Request, res: Response) => {
+export const postTrackEvent = async (req: Request<{}, {}, EventPayload[]>, res: Response) => {
   const body = req.body;
   const events = Array.isArray(body) ? body : [body];
 
