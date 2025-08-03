@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import EventModel from "../models/event.model";
 
+// POST /api/event
 export const postEvents = async (req: Request, res: Response) => {
   const body = req.body;
   const events = Array.isArray(body) ? body : [body];

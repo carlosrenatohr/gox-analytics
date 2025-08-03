@@ -1,19 +1,23 @@
+// -- Application entry point --
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongo";
 import eventRoutes from "./routes/event.routes";
 
-dotenv.config();
+// -- Launch app and core config --
 const app = express();
+const PORT = process.env.PORT || 3000;
+dotenv.config();
 
+// -- Middlewares --
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", eventRoutes);
+// -- Routes --
+app.use("/api/v1", eventRoutes);
 
-const PORT = process.env.PORT || 3000;
-
+// -- Connect to DB and start server --
 connectDB()
   .then(() => {
     app.listen(PORT, () => {

@@ -1,5 +1,6 @@
-import mongoose, { Schema, Document, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
+// -- Interfaces --
 export interface IEvent {
   userId: string;
   sessionId: string;
@@ -15,6 +16,7 @@ export interface IEvent {
 
 export interface IEventDocument extends IEvent, Document {}
 
+// -- Schema definition --
 const eventSchema = new Schema<IEventDocument>(
   {
     userId: { type: String, required: true, index: true },
