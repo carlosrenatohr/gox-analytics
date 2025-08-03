@@ -1,0 +1,13 @@
+
+{
+    "userId": "u_abc123",
+    "sessionId": "s_xyz987",
+    "event": "page_view",
+    "timestamp": "2025-07-30T14:22:00Z",
+    "metadata": {
+        "url": "/home",
+        "referrer": "/login",
+        "device": "mobile",
+        "browser": "Chrome"
+    }
+}
