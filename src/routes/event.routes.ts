@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { postTrackEvent, trackExternalEvent } from "../controllers/event.controller";
+import { postTrackEvent, postTrackExternalEvent } from "../controllers/event.controller";
 import { validateEvent } from "../middlewares/validation.middleware";
-import { eventArraySchema } from "../schemas/event.schema"; 
+import { eventArraySchema, externalEventArraySchema } from "../schemas/event.schema"; 
+
 
 const router = Router();
 
+// -- Event routes --
 router.post("/event", validateEvent(eventArraySchema), postTrackEvent);
-router.get("/event/external", trackExternalEvent);
+router.post("/event/external", validateEvent(externalEventArraySchema), postTrackExternalEvent);
 
 export default router;

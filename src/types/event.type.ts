@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { eventSchema } from "../schemas/event.schema";
+import { eventSchema, externalEventSchema } from "../schemas/event.schema";
 
+// -- Inferred types --
 export type EventPayload = z.infer<typeof eventSchema>;
-// export type ExternalQueryParams = z.infer<typeof externalEventSchema>;
+export type ExternalEventPayload = z.infer<typeof externalEventSchema>;

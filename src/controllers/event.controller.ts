@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { createEvents } from "../services/event.service";
-import { IEvent } from "../models/event.model";
-import { EventPayload } from "../types/event.type";
+import { buildEvent } from "../helpers/buildEvent";
+import { EventPayload, ExternalEventPayload } from "../types/event.type";
 
-// POST /api/v1/event
+// -- POST /api/v1/event
 export const postTrackEvent = async (req: Request<{}, {}, EventPayload[]>, res: Response) => {
   const events = req.body;
 
@@ -21,34 +21,13 @@ export const postTrackEvent = async (req: Request<{}, {}, EventPayload[]>, res: 
   }
 };
 
-// GET /api/v1/event/external
-export const trackExternalEvent = async (req: Request, res: Response) => {
-  const { url, referrer, device, browser } = req.query;
-
-  if (!url || !referrer || !device || !browser) {
-    console.log(`> URL is ${url}`);
-    console.log(`> Referrer is ${referrer}`);
-    console.log(`> Device is ${device}`);
-    console.log(`> Browser is ${browser}`);
-    return res.status(StatusCodes.BAD_REQUEST).json({ message: "Missing query parameters." });
-  }
-
-  const event: IEvent = {
-    userId: "external",
-    sessionId: `external_${Date.now()}`,
-    event: "external_visit",
-    timestamp: new Date(),
-    metadata: {
-      url: String(url),
-      referrer: String(referrer),
-      device: String(device),
-      browser: String(browser),
-    },
-  };
-
+// -- POST /api/v1/event/external
+export const postTrackExternalEvent = async (req: Request<{}, {}, ExternalEventPayload[]>, res: Response) => {
   try {
-    await createEvents([event]);
-    console.log(`> External visit logged from ${referrer} -> ${url} [${device}]`);
+    const body = req.body;
+    const events = body.map((e) => buildEvent(e, "external"));
+    const createdEvents = await createEvents(events);
+    console.log(`> External visit logged from ${createdEvents[0].metadata.referrer} -> ${createdEvents[0].metadata.url} [${createdEvents[0].metadata.device}]`);
     res.status(StatusCodes.CREATED).json({ message: "External event tracked." });
   } catch (err) {
     console.error("| Error tracking external event:", err);

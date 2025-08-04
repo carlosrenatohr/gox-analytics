@@ -3,21 +3,20 @@ import { z } from "zod";
 const MAX_AGE_IN_DAYS = 30;
 const MAX_AGE_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * MAX_AGE_IN_DAYS;
 
-// Shared subschema for event metadata
+// -- Subschemas --
+// Subschema for event metadata to allow flexible
+// validations and be shared with other events
 const metadataSchema = z.object({
   url: z.string().refine(
     (val) => val.startsWith('/'),
     { message: 'URL must be a path URL' }
   ),
-  referrer: z.string().refine(
-    (val) => val.startsWith('/'),
-    { message: 'Referrer must be a string' }
-  ),
+  referrer: z.string(),
   device: z.string().optional(),
   browser: z.string().optional(),
 });
 
-// Shared subschema for timestamp
+// Subschema for timestamp to be shared with external events
 export const timestampSchema = z
   .coerce
   .date()
@@ -30,7 +29,8 @@ export const timestampSchema = z
       message: "Datetime must not be in the future",
     });
 
-// Event schema
+// -- Event schemas --
+// Event schema for generic events
 export const eventSchema = z.object({
   userId: z.string(),
   sessionId: z.string(),
@@ -39,6 +39,9 @@ export const eventSchema = z.object({
   metadata: metadataSchema,
 });
 
-export const eventArraySchema = z.array(eventSchema);
-export const externalEventArraySchema = z.array(eventSchema);
+export const externalEventSchema = metadataSchema;
 
+// -- Array schemas --
+// Array schemas for events 
+export const eventArraySchema = z.array(eventSchema);
+export const externalEventArraySchema = z.array(externalEventSchema);

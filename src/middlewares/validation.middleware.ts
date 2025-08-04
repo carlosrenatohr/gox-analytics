@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
 import { StatusCodes } from "http-status-codes";
 
+// -- Middleware to validate events payload --
 export const validateEvent = (schema: z.ZodSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
