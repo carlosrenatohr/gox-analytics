@@ -17,6 +17,7 @@ const metadataSchema = z.object({
   browser: z.string().optional(),
 });
 
+// Shared subschema for timestamp
 export const timestampSchema = z
   .coerce
   .date()
@@ -29,6 +30,7 @@ export const timestampSchema = z
       message: "Datetime must not be in the future",
     });
 
+// Event schema
 export const eventSchema = z.object({
   userId: z.string(),
   sessionId: z.string(),

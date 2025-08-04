@@ -5,9 +5,12 @@ import { StatusCodes } from "http-status-codes";
 export const validateEvent = (schema: z.ZodSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = schema.safeParse(req.body);
+      const body = req.body;
+      const arrEvents = Array.isArray(body) ? body : [body];
+
+      const result = schema.safeParse(arrEvents);
       if (!result.success) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ message: "Invalid request body", errors: result.error.issues.map((issue) => issue.message) });
+        return res.status(StatusCodes.BAD_REQUEST).json({ message: "Invalid events payload", errors: result.error.issues.map((e) => e.message) });
       }
       next();
     } catch (error) {

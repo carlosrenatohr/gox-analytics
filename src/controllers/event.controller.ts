@@ -6,8 +6,7 @@ import { EventPayload } from "../types/event.type";
 
 // POST /api/v1/event
 export const postTrackEvent = async (req: Request<{}, {}, EventPayload[]>, res: Response) => {
-  const body = req.body;
-  const events = Array.isArray(body) ? body : [body];
+  const events = req.body;
 
   if (events.length === 0) {
     return res.status(StatusCodes.BAD_REQUEST).json({ message: "No events to process" });
@@ -15,7 +14,7 @@ export const postTrackEvent = async (req: Request<{}, {}, EventPayload[]>, res: 
 
   try {
     const total = await createEvents(events);
-    res.status(StatusCodes.OK).json({ message: "> Events processed successfully", count: total });
+    res.status(StatusCodes.OK).json({ message: "> Events processed successfully", count: total.length });
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "| Error processing events" });

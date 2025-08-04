@@ -9,8 +9,8 @@ export interface IEvent {
   metadata: {
     url: string;
     referrer: string;
-    device: string;
-    browser: string;
+    device?: string;
+    browser?: string;
   };
 }
 
@@ -26,8 +26,8 @@ const eventSchema = new Schema<IEventDocument>(
     metadata: {
       url: { type: String },
       referrer: { type: String },
-      device: { type: String },
-      browser: { type: String },
+      device: { type: String, required: false },
+      browser: { type: String, required: false },
     },
   },
   {
