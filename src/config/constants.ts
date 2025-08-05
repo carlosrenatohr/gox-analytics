@@ -11,3 +11,11 @@ export const DEFAULT_PAGE_NUMBER_VALUE = 1;
 
 // Default date values for stats
 export const DEFAULT_DATE_FORMAT = "YYYY-MM-DD"; 
+
+// JWT constants
+export const JWT_SECRET = process.env.JWT_SECRET!;
+export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '8h';
+
+// Rate limit constants
+export const TOKEN_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+export const TOKEN_LIMIT_MAX = 5; // max 5 reqs every 15 minutes

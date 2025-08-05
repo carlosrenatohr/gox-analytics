@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/mongo";
 import eventRoutes from "./routes/event.routes";
 import statsRoutes from "./routes/stats.routes";
+import authRoutes from "./routes/auth.routes";
 
 // -- Launch app and core config --
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 // -- Routes --
 app.use("/api/v1/event", eventRoutes);
 app.use("/api/v1/stats", statsRoutes);
+app.use("/", authRoutes);
 
 // -- Connect to DB and start server --
 connectDB()
