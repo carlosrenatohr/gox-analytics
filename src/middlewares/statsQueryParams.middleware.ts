@@ -3,11 +3,11 @@ import { StatusCodes } from 'http-status-codes';
 import { getUTCStartOfDay, getUTCEndOfDay } from '../helpers/date.utils';
 import { StatsRequest } from '../types/express';
 import { DEFAULT_PAGE_LIMIT_VALUE, DEFAULT_PAGE_NUMBER_VALUE } from '../config/constants';
-
+import { GroupingBy, OrderingBy, OrderingDirection } from '../types/stats.types';
 
 // -- Middleware to validate stats query params --
 export const validateStatsQuery = (req: Request, res: Response, next: NextFunction) => {
-    let { from, to, limit, page } = req.query;
+    let { from, to, limit, page, orderBy, orderDirection, groupBy } = req.query;
 
     // Set today as default dates if not provided
     const now = new Date();
@@ -30,9 +30,12 @@ export const validateStatsQuery = (req: Request, res: Response, next: NextFuncti
         toDate,
         limit: parseInt(limit as string) || DEFAULT_PAGE_LIMIT_VALUE,
         page: parseInt(page as string) || DEFAULT_PAGE_NUMBER_VALUE,
+        orderBy: orderBy as OrderingBy || 'url',
+        orderDirection: orderDirection as OrderingDirection || 'desc',
+        groupBy: groupBy as GroupingBy || 'url'
     };
 
-    console.log('| Final query params:', (req as StatsRequest).statsQuery);
+    console.log('> Final query params:', (req as StatsRequest).statsQuery);
 
     next();
 };

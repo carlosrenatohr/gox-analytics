@@ -6,9 +6,8 @@ import { getPageViewsStatsService } from "../services/stats.service";
 // GET /api/v1/stats/page-views
 export const getPageViewsStats = async (req: Request, res: Response) => {
     try {
-        const { fromDate, toDate, limit, page } = (req as StatsRequest).statsQuery;
-        console.log('> Query params:', { fromDate, toDate, limit, page });
-        const results = await getPageViewsStatsService(fromDate, toDate, limit, page);
+        const { fromDate, toDate, limit, page, orderBy, orderDirection, groupBy } = (req as StatsRequest).statsQuery;
+        const results = await getPageViewsStatsService(fromDate, toDate, limit, page, orderBy, orderDirection, groupBy);
         console.log('> Results:', results);
         res.status(StatusCodes.OK).json({ total: results.length, data: results });
     } catch (err) {
