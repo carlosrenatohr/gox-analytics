@@ -1,16 +1,14 @@
-# 📊 User Behavior Analytics API
+# 📊 GOX ANALYTICS - User Behavior Analytics API 🌵
 
-# GOX ANALYTICS DEMO :chart_with_upwards_trend:chart 🌵
-
-Hey, este proyecto es una API lista para trackear y analizar el comportamiento de usuarios en sitios web en tiempo real. Pensado para ser simple de instalar, usar y entender. Empecemos..
+Hey! This project is an API ready to track and analyze user behavior on websites in real time. It’s designed to be super easy to install, use, and understand. Let’s get started…
 
 ---
 
-##  ¿Qué hace esto?❓
+## What does this do?❓
 
-- Recibe y almacena eventos de usuarios (clics, visitas, etc).
-- Expone endpoints de analytics (page views, actividad, cohortes).
-- Listo para probar y extender.
+- Receives and stores user events (clicks, visits, etc.).
+- Exposes analytics endpoints (page views, activity, cohorts).
+- Ready to test and extend.
 
 ---
 
@@ -22,73 +20,72 @@ Hey, este proyecto es una API lista para trackear y analizar el comportamiento d
 
 ---
 
-##  Instalación rápida (local) 🛠️
+## Quick Install (Local) 🛠️
 
-1. **Cloná el repo:**
+1. **Clone the repo:**
 
     ```bash
     git clone https://github.com/xxx/xxx.git
     cd gox-deno
     ```
 
-2. **Levantá todo con Docker Compose:**
+2. **Spin everything up with Docker Compose:**
 
-    > Si tenés Docker y Docker Compose instalado, solo corré:
+    > If you’ve got Docker and Docker Compose installed, just run:
 
     ```bash
     docker-compose up --build
     ```
 
-    Esto va a levantar:
-    - La API en Node.js (puerto 3000)
-    - MongoDB (puerto 27017)
+    This will start up:
+    - The Node.js API (port 3000)
+    - MongoDB (port 27017)
 
-~~3. **Carga de datos demo (opcional):**~~
+~~3. **Load demo data (optional):**~~  
     ```bash
     npm run seed
     ```
-    (Esto inserta datos de ejemplo para que puedas jugar con los endpoints y ver resultados al toque).
+    (This inserts sample data so you can play around with the endpoints and see results instantly.)
 
-~~4. **Docs y pruebas:**~~
-    - Entra a [http://localhost:3000/api-docs](http://localhost:3000/api-docs) para ver y probar la API (Swagger).
-    - O usa el archivo Postman incluido.
-
----
-
-##  Seguridad :female_detective:
-
-- Necesitás una API Key para enviar eventos o consultar reportes.
-- Por defecto, se usa `Bearer` + token  en el header como layer de seguridad.
-- No compartas tu key real si usás esto en producción. :p
+~~4. **Docs and testing:**~~  
+    - Go to [http://localhost:3000/api-docs](http://localhost:3000/api-docs) to view and test the API (Swagger).
+    - Or use the included Postman collection.
 
 ---
 
-##  Endpoints principales :small_airplane:
+## Security :female_detective:
 
-- `POST /events` → Recibe eventos de usuario (uno o varios a la vez).
+- You’ll need an API Key to send events or get reports.
+- By default, it uses `Bearer` + token in the header as a security layer.
+- Don’t share your real key if you use this in production. :p
+
+---
+
+## Main Endpoints :small_airplane:
+
+- `POST /events` → Receives user events (one or multiple at a time).
 - `GET /stats/page-views?from=2025-08-01&to=2025-08-04`
 - ...
 
-~~Mirá [api-docs](http://localhost:3000/api-docs) o el Postman para todos los detalles y ejemplos.~~
+~~Check out [api-docs](http://localhost:3000/api-docs) or the Postman collection for all the details and examples.~~
 
 ---
 
-##  Para devs 👀
+## For Devs 👀
 
-- Código modular: todo está organizado en carpetas por feature.
-- Usa TypeScript, así que si algo no compila... es por tipos.
-~~- Pruebas unitarias con Jest/Vitest (ver `/tests`).~~
-~~- Seed script en `/scripts/seed.ts`.~~
-
----
-
-
-## ¿Y ahora qué? 👋
-
-- Listo para producción si querés extender.
-~~- Podés montar un UI rápido~~ (in progress..).
-- Cualquier duda, chequeá los issues del repo o escribime. 
+- Modular code: everything’s organized in folders by feature.
+- Uses TypeScript, so if something doesn’t compile… it’s probably a type issue.
+~~- Unit tests with Jest/Vitest (see `/tests`).~~  
+~~- Seed script in `/scripts/seed.ts`.~~
 
 ---
 
-¡Y ya sabes, que los logs te acompañen! 🥲
+## What’s next? 👋
+
+- Ready for production if you want to build on top.
+~~- You can throw together a quick UI~~ (in progress…).
+- Any questions? Check the repo’s issues or just hit me up.
+
+---
+
+And remember—may the logs be with you! 🥲
