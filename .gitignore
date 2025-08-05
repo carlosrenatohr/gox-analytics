@@ -1,5 +1,6 @@
 pnpm-lock.yaml
 node_modules
+dist
 .env
 .env.dev
 __eslint.config.js
