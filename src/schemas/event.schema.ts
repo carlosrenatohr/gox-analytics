@@ -1,7 +1,5 @@
 import { z } from "zod";
-
-const MAX_AGE_IN_DAYS = 30;
-const MAX_AGE_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * MAX_AGE_IN_DAYS;
+import { MIN_AGE_IN_MILLISECONDS, MAX_AGE_IN_MILLISECONDS, MIN_AGE_IN_DAYS } from "../config/constants";
 
 // -- Subschemas --
 // Subschema for event metadata to allow flexible
@@ -21,12 +19,12 @@ export const timestampSchema = z
   .coerce
   .date()
   .refine(
-    (date) => date.getTime() > Date.now() - MAX_AGE_IN_MILLISECONDS, {
-      message: `Datetime must be within the last ${MAX_AGE_IN_DAYS} days`,
+    (date) => date.getTime() > Date.now() - MIN_AGE_IN_MILLISECONDS, {
+      message: `Datetime must be within the last ${MIN_AGE_IN_DAYS} days`,
     })
   .refine(
-    (date) => date <= new Date(), {
-      message: "Datetime must not be in the future",
+    (date) => date <= new Date(Date.now() - MAX_AGE_IN_MILLISECONDS), {
+      message: "Datetime must not be in the future.",
     });
 
 // -- Event schemas --

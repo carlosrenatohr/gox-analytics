@@ -1,7 +1,7 @@
 // -- Events Stats Interfaces --
 interface BaseStatsQuery {
-    from?: string;
-    to?: string;
+    from?: Date;
+    to?: Date;
     limit?: string;
     page?: string;
 }

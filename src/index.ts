@@ -16,8 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 // -- Routes --
-app.use("/api/v1", eventRoutes);
-// app.use("/api/v1/stats", statsRoutes);
+app.use("/api/v1/event", eventRoutes);
+app.use("/api/v1/stats", statsRoutes);
 
 // -- Connect to DB and start server --
 connectDB()

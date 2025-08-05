@@ -8,4 +8,3 @@ export const createEvents = async (events: IEvent[]): Promise<IEvent[]> => {
 
   return result;
 };
-

@@ -1,55 +1,38 @@
 import { Request, Response, NextFunction } from 'express';
-import { getTodayRange, parseDate, getEndOfDay } from '../helpers/date.utils';
 import { StatusCodes } from 'http-status-codes';
+import { getUTCStartOfDay, getUTCEndOfDay } from '../helpers/date.utils';
+import { StatsRequest } from '../types/express';
+import { DEFAULT_PAGE_LIMIT_VALUE, DEFAULT_PAGE_NUMBER_VALUE } from '../config/constants';
 
-const DEFAULT_LIMIT = 10;
-const DEFAULT_PAGE = 1;
 
 // -- Middleware to validate stats query params --
 export const validateStatsQuery = (req: Request, res: Response, next: NextFunction) => {
-    const { from, to, limit, page } = req.query;
+    let { from, to, limit, page } = req.query;
 
-    // Set default dates if not provided
-    const today = getTodayRange();
-    if (!from) {
-        req.query.from = today.from.toISOString();
-    }
-    if (!to) {
-        req.query.to = today.to.toISOString();
+    // Set today as default dates if not provided
+    const now = new Date();
+    const fromDate = from ? new Date(from as string) : getUTCStartOfDay(now);
+    const toDate = to ? new Date(to as string) : getUTCEndOfDay(now);
+
+    // Validate dates are valid
+    if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid dates" });
     }
 
-    // Parse and validate dates using the helper functions
-    let fromDate: Date, toDate: Date;
-    
-    try {
-        fromDate = parseDate(req.query.from as string);
-        toDate = getEndOfDay(req.query.to as string); // Use end of day for 'to' date
-        
-        // Update the query with properly formatted dates
-        req.query.from = fromDate.toISOString();
-        req.query.to = toDate.toISOString();
-    } catch (error) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ 
-            error: 'Invalid date format. Use ISO format (YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss.sssZ)' 
-        });
-    }
-    
-    // Check if from is before to
+    // Validate from date is before to date
     if (fromDate > toDate) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ 
-            error: 'From date must be before to date' 
-        });
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: "From date must be before To date" });
     }
 
-    // Set default limit if not provided or invalid
-    if (!limit || isNaN(parseInt(limit as string)) || parseInt(limit as string) <= 0) {
-        req.query.limit = DEFAULT_LIMIT.toString();
-    }
+    // Set default limit and page if not sent or invalid
+    (req as StatsRequest).statsQuery = {
+        fromDate,
+        toDate,
+        limit: parseInt(limit as string) || DEFAULT_PAGE_LIMIT_VALUE,
+        page: parseInt(page as string) || DEFAULT_PAGE_NUMBER_VALUE,
+    };
 
-    // Set default page if not provided or invalid
-    if (!page || isNaN(parseInt(page as string)) || parseInt(page as string) <= 0) {
-        req.query.page = DEFAULT_PAGE.toString();
-    }
+    console.log('| Final query params:', (req as StatsRequest).statsQuery);
 
     next();
 };

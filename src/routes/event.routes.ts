@@ -7,7 +7,7 @@ import { eventArraySchema, externalEventArraySchema } from "../schemas/event.sch
 const router = Router();
 
 // -- Event routes --
-router.post("/event", validateEvent(eventArraySchema), postTrackEvent);
-router.post("/event/external", validateEvent(externalEventArraySchema), postTrackExternalEvent);
+router.post("/", validateEvent(eventArraySchema), postTrackEvent);
+router.post("/external", validateEvent(externalEventArraySchema), postTrackExternalEvent);
 
 export default router;
