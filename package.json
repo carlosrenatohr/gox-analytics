@@ -8,6 +8,8 @@
     "dev": "dotenv -e .env.dev -- ts-node-dev --respawn --transpile-only src/index.ts",
     "start": "ts-node dist/index.ts",
     "start:prod": "node dist/index.js",
+    "seed:dev": "dotenv -e .env.dev -- ts-node-dev src/scripts/event.seeder.ts",
+    "seed": "ts-node-dev src/scripts/event.seeder.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --ext .ts --fix",
@@ -31,6 +33,7 @@
     "zod": "^4.0.14"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@types/cors": "^2.8.19",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.3",

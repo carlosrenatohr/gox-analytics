@@ -35,5 +35,9 @@ const eventSchema = new Schema<IEventDocument>(
   }
 );
 
+// -- Compound Indexes --
+eventSchema.index({ timestamp: 1, 'metadata.url': 1 });
+eventSchema.index({ userId: 1, timestamp: 1 });
+
 const EventModel = model<IEventDocument>("Event", eventSchema);
 export default EventModel;

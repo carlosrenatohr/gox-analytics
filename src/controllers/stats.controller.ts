@@ -9,7 +9,7 @@ export const getPageViewsStats = async (req: Request, res: Response) => {
         const { fromDate, toDate, limit, page, orderBy, orderDirection, groupBy } = (req as StatsRequest).statsQuery;
         const results = await getPageViewsStatsService(fromDate, toDate, limit, page, orderBy, orderDirection, groupBy);
         console.log('> Results:', results);
-        res.status(StatusCodes.OK).json({ total: results.length, data: results });
+        res.status(StatusCodes.OK).json({ page, limit, total: results.length, data: results });
     } catch (err) {
         console.error('|Error in getPageViewsStats:', err);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Error fetching page views stats" });

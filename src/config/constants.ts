@@ -19,3 +19,7 @@ export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '8h';
 // Rate limit constants
 export const TOKEN_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 export const TOKEN_LIMIT_MAX = 5; // max 5 reqs every 15 minutes
+
+// Event seeder constants
+export const TOTAL_EVENTS = 100000; // 100,000 events
+export const BATCH_SIZE = 10000; // 10,000 events per batch
