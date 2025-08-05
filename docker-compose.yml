@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:7
+    container_name: analytics_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build: .
+    container_name: analytics_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
