@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 // -- Load environment variables --
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = 'mongodb+srv://carlos:NBtJ9Ow1uAQbItds@cluster0.gcj2dkf.mongodb.net/database_name?retryWrites=true&w=majority';
 if (!MONGO_URI) {
   throw new Error("Error: MONGO_URI is not defined in .env file");
 }
