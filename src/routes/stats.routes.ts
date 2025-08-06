@@ -1,5 +1,5 @@
 import express from "express";
-import { getPageViewsStats, getUserActivityStats } from "../controllers/stats.controller";
+import { getPageViewsStats, getTopPages, getTopUsers, getUserActivityStats } from "../controllers/stats.controller";
 import { validateStatsQuery } from "../middlewares/statsQueryParams.middleware";
 import { authenticateToken } from "../middlewares/auth.middleware";
 
@@ -46,7 +46,7 @@ const router = express.Router();
  *         required: false
  *         schema:
  *           type: string
- *           example: "views"
+ *           example: "count"
  *       - name: orderDirection 
  *         in: query
  *         required: false
@@ -170,7 +170,7 @@ router.get("/page-views", authenticateToken, validateStatsQuery, getPageViewsSta
  *         required: false
  *         schema:
  *           type: string
- *           example: "views"   
+ *           example: "count"   
  *       - name: orderDirection
  *         in: query
  *         required: false
@@ -229,5 +229,156 @@ router.get("/page-views", authenticateToken, validateStatsQuery, getPageViewsSta
  */ 
 
 router.get("/user-activity", authenticateToken, validateStatsQuery, getUserActivityStats);
+
+/**
+ * @swagger
+ * /api/v1/stats/top-pages:
+ *   get:
+ *     tags:
+ *       - Events Stats
+ *     summary: Get top pages stats
+ *     description: Get top pages stats for a given time range
+ *     security: []
+ *     parameters:
+ *       - name: from
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2025-07-04"
+ *       - name: to
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2025-08-25"
+ *       - name: limit
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: number
+ *           example: 10
+ *       - name: page
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: number
+ *           example: 1
+ *       - name: orderBy
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *           example: "count"
+ *       - name: orderDirection
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *           example: "desc"
+ *     responses:
+ *       200:
+ *         description: Top pages stats retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: number
+ *                   description: Current page number
+ *                 limit:
+ *                   type: number
+ *                   description: Number of items per page
+ *                 total:
+ *                   type: number
+ *                   description: Total number of items
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       400:
+ *         description: Invalid query parameters. Check the query parameters and try again.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
+router.get("/top-pages", validateStatsQuery, getTopPages);
+
+/**
+ * @swagger
+ * /api/v1/stats/top-users:
+ *   get:
+ *     tags:
+ *       - Events Stats
+ *     summary: Get top users stats
+ *     description: Get top users stats for a given time range
+ *     security: []
+ *     parameters:
+ *       - name: from
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2025-07-04"
+ *       - name: to
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2025-08-25"
+ *       - name: limit
+ *         in: query
+ *         required: false 
+ *         schema:
+ *           type: number
+ *           example: 10
+ *       - name: page
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: number
+ *           example: 1
+ *       - name: orderBy
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string   
+ *           example: "count"
+ *       - name: orderDirection
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *           example: "desc"
+ *     responses:   
+ *       200:
+ *         description: Top users stats retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: number
+ *                   description: Current page number               
+ *                 limit:
+ *                   type: number
+ *                   description: Number of items per page
+ *                 total:
+ *                   type: number
+ *                   description: Total number of items
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object 
+ */
+
+router.get("/top-users", validateStatsQuery, getTopUsers);
 
 export default router;
