@@ -8,6 +8,7 @@ import { GroupingBy, OrderingBy, OrderingDirection } from '../types/stats.types'
 // -- Middleware to validate stats query params --
 export const validateStatsQuery = (req: Request, res: Response, next: NextFunction) => {
     let { from, to, limit, page, orderBy, orderDirection, groupBy } = req.query;
+    let { userId } = req.query;
 
     // Set today as default dates if not provided
     const now = new Date();
@@ -33,6 +34,10 @@ export const validateStatsQuery = (req: Request, res: Response, next: NextFuncti
         orderBy: orderBy as OrderingBy || 'url',
         orderDirection: orderDirection as OrderingDirection || 'desc',
         groupBy: groupBy as GroupingBy || 'url'
+    };
+
+    (req as StatsRequest).statsOptions = {
+        userId: userId as string || undefined
     };
 
     console.log('> Final query params:', (req as StatsRequest).statsQuery);

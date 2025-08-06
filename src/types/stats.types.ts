@@ -23,17 +23,9 @@ interface SecondaryStatsQuery {
     device?: string;
     browser?: string;
     sessionId?: string;
+    userId?: string;
 }
 
 // Page views stats query params
 export interface PageViewsStatsQueryParams extends BaseStatsQuery, SecondaryStatsQuery {}
-
-// Page views stats response
-export interface PageViewsStatsResponse {
-    totalViews: number;
-    totalUniqueVisitors: number;
-    totalTime: number;
-    avgTime: number;
-    totalPages: number;
-}
 

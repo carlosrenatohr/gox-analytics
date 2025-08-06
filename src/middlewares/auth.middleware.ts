@@ -16,6 +16,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
         (req as any).user = decoded;
         next();
     } catch (err) {
+        console.error('|Error in authenticateToken:', err);
         return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid or expired token' });
     }
 };

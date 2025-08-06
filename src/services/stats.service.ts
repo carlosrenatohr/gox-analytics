@@ -38,3 +38,35 @@ export const getPageViewsStatsService = async (
 
     return EventModel.aggregate(pipeline);
 };
+
+// Service to get user activity stats
+export const getUserActivityStatsService = async (userId: string, fromDate: string, toDate: string, limit: number, page: number, orderBy: OrderingBy, orderDirection: OrderingDirection) => {
+    const match: any = {
+        userId,
+        timestamp: {
+            $gte: new Date(fromDate),
+            $lte: new Date(toDate),
+        },
+    };
+
+    const pipeline = [
+        { $match: match },
+        {
+            $group: {
+                _id: '$sessionId',
+                events: {
+                    $push: {
+                        event: '$event',
+                        timestamp: '$timestamp',
+                        metadata: '$metadata',
+                    }
+                }
+            }
+        },
+        { $project: { sessionId: '$_id', events: 1, _id: 0 } },
+        { $sort: { sessionId: 1 as 1 | -1 } },
+        ...getPaginationPipeline(page, limit),
+    ];
+
+    return EventModel.aggregate(pipeline);
+};
