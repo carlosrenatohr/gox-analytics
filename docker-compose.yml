@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mongo:
     image: mongo:7
-    container_name: analytics_mongo
+    container_name: gox_mongo
     restart: always
     ports:
       - "27017:27017"
@@ -11,7 +11,7 @@ services:
 
   api:
     build: .
-    container_name: analytics_api
+    container_name: gox_api
     restart: always
     ports:
       - "3000:3000"

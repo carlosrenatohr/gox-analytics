@@ -2,12 +2,13 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import swaggerUi from 'swagger-ui-express';
-import swaggerConfig from "./config/swagger";
 import connectDB from "./config/mongo";
 import eventRoutes from "./routes/event.routes";
 import statsRoutes from "./routes/stats.routes";
 import authRoutes from "./routes/auth.routes";
+import publicRoutes from "./routes/public.routes";
+import swaggerConfig from "./config/swagger";
+import swaggerUi from "swagger-ui-express";
 
 // -- Launch app and core config --
 const app = express();
@@ -21,8 +22,9 @@ app.use(express.json());
 // -- Routes --
 app.use("/api/v1/event", eventRoutes);
 app.use("/api/v1/stats", statsRoutes);
-app.use("/", authRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.use("/api/v1/auth", authRoutes);
+app.use("/", publicRoutes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 // -- Connect to DB and start server --
 connectDB()

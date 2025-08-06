@@ -5,7 +5,7 @@ import { authRateLimiter } from '../middlewares/tokenLimit.middleware';
 const router = express.Router();
 /**
  * @swagger
- * /api/v1/token:
+ * /api/v1/auth/token:
  *   get:
  *     tags:
  *       - Auth
@@ -29,6 +29,6 @@ const router = express.Router();
  *                   type: string
  *                   description: User ID associated with the token
  */
-router.get('/api/v1/token', authRateLimiter, getToken); // Only for testing purposes :p
+router.get('/token', authRateLimiter, getToken); // Only for testing purposes :p
 
 export default router;
