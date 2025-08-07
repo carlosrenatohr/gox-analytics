@@ -25,4 +25,4 @@ export const TOTAL_EVENTS = 100000; // 100,000 events
 export const BATCH_SIZE = 10000; // 10,000 events per batch
 
 // Cache constants
-export const CACHE_TTL = 120; // 120 seconds
+export const CACHE_TTL = 3600; // 1 hour

@@ -102,7 +102,7 @@ This will generate 100,000 sample events for testing.
 The API includes comprehensive Swagger documentation automatically generated from JSDoc comments:
 
 - **Local**: http://localhost:3000/api-docs
-- **Production**: http://3.134.78.119/api-docs
+- **Production**: http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/api-docs
 
 #### Key Features:
 - **Interactive Testing**: Test endpoints directly from the browser
@@ -130,7 +130,7 @@ const redis = new Redis({
 ```
 
 #### Cache Strategy
-- **TTL**: 120 seconds (configurable)
+- **TTL**: 60 minutes (configurable)
 - **Fallback**: Graceful degradation if Redis is unavailable
 - **Key Generation**: Based on query parameters for uniqueness
 - **Serialization**: JSON serialization for complex objects
@@ -155,7 +155,7 @@ return getOrSetCache(cacheKey, async () => {
 
 ### Authentication Endpoints
 
-Protection for the key endpoints by implementing a Bearer auth layer. It's required to generate a token to use it on the application first while sendint your requests. For testing purposes, this is possible by the next simple rendpoint
+Protection for the key endpoints by implementing a Bearer auth layer. It's required to generate a token to use it on the application first while sendint your requests. For testing purposes, this is possible by the next simple endpoint.
 
 #### Get Access Token
 ```http
@@ -212,41 +212,12 @@ pnpm run seed
 The application is deployed on AWS using Fargate for serverless container management:
 
 #### Architecture Components
+- **ECR**: A Managed Docker container registry 
 - **ECS Fargate**: Container orchestration
 - **Application Load Balancer**: Traffic distribution
-- **RDS**: Managed MongoDB (or DocumentDB)
-- **ElastiCache**: Redis caching (alternative to Upstash)
+- **Atlas**: Third Party MongoDB for production
+- **Upstash**: Redis caching alt
 - **CloudWatch**: Logging and monitoring
-- **Route 53**: DNS management
-
-#### Deployment Stack
-
-```yaml
-# AWS CloudFormation/ECS Task Definition
-{
-  "family": "gox-analytics",
-  "networkMode": "awsvpc",
-  "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512",
-  "executionRoleArn": "arn:aws:iam::account:role/ecsTaskExecutionRole",
-  "containerDefinitions": [
-    {
-      "name": "gox-api",
-      "image": "your-ecr-repo/gox-analytics:latest",
-      "portMappings": [{"containerPort": 3000}],
-      "environment": [
-        {"name": "NODE_ENV", "value": "production"},
-        {"name": "PORT", "value": "3000"}
-      ],
-      "secrets": [
-        {"name": "MONGO_URI", "valueFrom": "arn:aws:secretsmanager:region:account:secret:mongo-uri"},
-        {"name": "JWT_SECRET", "valueFrom": "arn:aws:secretsmanager:region:account:secret:jwt-secret"}
-      ]
-    }
-  ]
-}
-```
 
 #### Environment Variables for Production
 ```bash
@@ -262,8 +233,8 @@ JWT_SECRET=your_production_jwt_secret
 ```bash
 # Build and push Docker image
 docker build -t gox-analytics .
-docker tag gox-analytics:latest your-ecr-repo/gox-analytics:latest
-docker push your-ecr-repo/gox-analytics:latest
+docker tag gox-analytics:latest {your-ecr-repo}/gox-analytics:latest
+docker push {your-ecr-repo}/gox-analytics:latest
 
 # Update ECS service
 aws ecs update-service --cluster gox-cluster --service gox-service --force-new-deployment
@@ -295,6 +266,4 @@ pnpm run test         # Run unit tests
 pnpm run test:watch   # Run tests in watch mode
 pnpm run test:coverage # Run tests with coverage
 ```
-
-### Project Structure
 

@@ -7,13 +7,13 @@ export type GroupingBy = 'url' | 'device' | 'browser' | 'sessionId';
 // -- Events Stats Interfaces --
 // General stats query params
 interface BaseStatsQuery {
-    from?: Date;
-    to?: Date;
-    limit?: string;
-    page?: string;
-    orderBy?: OrderingBy;
-    orderDirection?: OrderingDirection;
-    groupBy?: GroupingBy;
+    fromDate: Date;
+    toDate: Date;
+    limit: number;
+    page: number;
+    orderBy: OrderingBy;
+    orderDirection: OrderingDirection;
+    groupBy: GroupingBy;
 }
 
 // Secondary stats query params
