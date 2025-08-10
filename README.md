@@ -2,7 +2,7 @@
 
 An user behavior analytics platform that tracks and analyzes user events on websites. Built with Node.js +  TypeScript, MongoDB, and Redis caching.
 
-** Live Demo:** [http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health](http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health)
+**Live Demo:** [http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health](http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health)
 
 ---
 
