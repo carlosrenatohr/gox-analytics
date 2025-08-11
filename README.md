@@ -269,3 +269,32 @@ pnpm run test:watch   # Run tests in watch mode
 pnpm run test:coverage # Run tests with coverage
 ```
 
+## 📌 Development Roadmap - Next Steps
+
+| Status | Phase / Task |
+|--------|--------------|
+| **🔵 Phase 1 – Safe Changes (Non-Disruptive)** | |
+| [ ] Fix typos in README |
+| [ ] Add "Next Steps" section to README |
+| [ ] Apply TypeScript best practices |
+| [ ] Improve linter (without breaking production, Biome / OxC) |
+| [ ] GitHub Actions setup |
+| [ ] Implement Vitest tests (with mocks, no production endpoints) |
+| [ ] Evaluate Elasticsearch for optional read-only search |
+| [ ] Integrate Sentry or configure CloudWatch for alerts |
+| [ ] Review and tighten ECS security groups and network rules |
+
+| **🟡 Phase 2 – Experimental / Staging Work** | |
+| [ ] Evaluate Grafana for metrics visualization |
+| [ ] Initial UI exploration with React |
+| [ ] Assess feasibility of AI or MCP integration |
+| [ ] Professional MongoDB cloud deployment (managed service) |
+| [ ] Improve caching layer (evaluate Upstash alternatives, Redis hosting options) |
+| [ ] Add HTTPS (AWS ACM) and domain configuration for staging environment |
+| [ ] Configure custom subdomain for local and staging (docker + ECS) |
+
+| **🟢 Phase 3 – Validation & Scaling** | |
+| [ ] Full API testing in production and staging |
+| [ ] Optimize Docker images and reduce build size |
+| [ ] CI/CD optimization and deploy automation refinement |
+| [ ] Prepare IaC (Terraform or CDK) for reproducible environments |
