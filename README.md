@@ -271,11 +271,12 @@ pnpm run test:coverage # Run tests with coverage
 
 ## 📌 Development Roadmap - Next Steps
 
+
+**🔵 Phase 1 – Safe Changes (Non-Disruptive)**
 | Status | Phase / Task |
 |--------|--------------|
-| **🔵 Phase 1 – Safe Changes (Non-Disruptive)** | |
-| [ ] Fix typos in README |
-| [ ] Add "Next Steps" section to README |
+| [x] Fix typos in README |
+| [x] Add "Next Steps" section to README |
 | [ ] Apply TypeScript best practices |
 | [ ] Improve linter (without breaking production, Biome / OxC) |
 | [ ] GitHub Actions setup |
@@ -284,7 +285,10 @@ pnpm run test:coverage # Run tests with coverage
 | [ ] Integrate Sentry or configure CloudWatch for alerts |
 | [ ] Review and tighten ECS security groups and network rules |
 
-| **🟡 Phase 2 – Experimental / Staging Work** | |
+**🟡 Phase 2 – Experimental / Staging Work** 
+
+| Status | Phase / Task |
+|--------|--------------|
 | [ ] Evaluate Grafana for metrics visualization |
 | [ ] Initial UI exploration with React |
 | [ ] Assess feasibility of AI or MCP integration |
@@ -293,7 +297,10 @@ pnpm run test:coverage # Run tests with coverage
 | [ ] Add HTTPS (AWS ACM) and domain configuration for staging environment |
 | [ ] Configure custom subdomain for local and staging (docker + ECS) |
 
-| **🟢 Phase 3 – Validation & Scaling** | |
+**🟢 Phase 3 – Validation & Scaling**
+
+| Status | Phase / Task |
+|--------|--------------|
 | [ ] Full API testing in production and staging |
 | [ ] Optimize Docker images and reduce build size |
 | [ ] CI/CD optimization and deploy automation refinement |
