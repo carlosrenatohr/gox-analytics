@@ -4,3 +4,5 @@ dist
 .env
 .env.dev
 __eslint.config.js
+# Sentry Config File
+.sentryclirc
