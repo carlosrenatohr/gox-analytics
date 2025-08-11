@@ -1,8 +1,8 @@
 # 📊 GOX ANALYTICS - User Behavior Analytics API 🌵
 
-An user behavior analytics platform that tracks and analyzes user events on websites. Built with Node.js +  TypeScript, MongoDB, and Redis caching.
+A user behavior analytics platform that tracks and analyzes user events on websites. Built with Node.js +  TypeScript, MongoDB, and Redis caching.
 
-** Live Demo:** [http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health](http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health)
+**Live Demo:** [http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health](http://gox-load-balancer3-1001085163.us-east-2.elb.amazonaws.com/health)
 
 ---
 
@@ -14,7 +14,7 @@ An user behavior analytics platform that tracks and analyzes user events on webs
 - **🔄 Maintainable Codebase**: TypeScript with strict typing, comprehensive documentation, and consistent coding patterns
 - **🚀 Cloud-Native Design**: Containerized with Docker, deployed on AWS Fargate with auto-scaling capabilities
 
-The development team in charge (1) poured countless hours into crafting each endpoint, ensuring that every line of code contributes to a system that not only meets current requirements but is engineered to evolve and scale with future demands. This isn't just another API—ish, it is THE API.
+The development team in charge (1) poured countless hours into crafting each endpoint, ensuring that every line of code contributes to a system that not only meets current requirements but is engineered to evolve and scale with future demands. This isn't just another API, it is THE API.
 
 ---
 
@@ -22,7 +22,7 @@ The development team in charge (1) poured countless hours into crafting each end
 
 ### Core Technologies
 - **Backend**: Node.js + TypeScript + Express.js
-- **Database**: MongoDB with Mongoose ODM
+- **Database**: MongoDB with Mongoose ORM
 - **Caching**: Upstash Redis
 - **Documentation**: Swagger/OpenAPI 3.0
 - **Containerization**: Docker + Docker Compose
@@ -112,7 +112,7 @@ The API includes comprehensive Swagger documentation automatically generated fro
 - **Authentication**: Bearer token authentication support
 - **Schema Validation**: Automatic request/response validation
 
-Feel free to explore documentation by yourself.
+Feel free to explore the documentation by yourself.
 
 ---
 
@@ -157,7 +157,7 @@ return getOrSetCache(cacheKey, async () => {
 
 ### Authentication Endpoints
 
-Protection for the key endpoints by implementing a Bearer auth layer. It's required to generate a token to use it on the application first while sendint your requests. For testing purposes, this is possible by the next simple endpoint.
+Protection for the key endpoints by implementing a Bearer auth layer. It's required to generate a token to use it on the application first while sending your requests. For testing purposes, this is possible by the next simple endpoint.
 
 #### Get Access Token
 ```http
@@ -218,7 +218,7 @@ The application is deployed on AWS using Fargate for serverless container manage
 - **ECS Fargate**: Container orchestration
 - **Application Load Balancer**: Traffic distribution
 - **Atlas**: Third Party MongoDB for production
-- **Upstash**: Redis caching alt
+- **Upstash**: Redis caching alternative
 - **CloudWatch**: Logging and monitoring
 
 #### Environment Variables for Production
