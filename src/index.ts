@@ -18,13 +18,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 dotenv.config();
 
-// -- Sentry --
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  tracesSampleRate: 1.0,
-});
-
+// -- Sentry Configuration --
 Sentry.setupExpressErrorHandler(app);
+
+// Sentry.startSpan({
+//   name: "My Span",
+// }, () => {
+//   throw new Error("My first Sentry error3!");
+// });
 
 // -- Middlewares --
 app.use(cors());
@@ -37,7 +38,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/", publicRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 app.get("/debug-sentry", function mainHandler(req, res) {
-  throw new Error("My first Sentry error!");
+  throw new Error("My first Sentry error2!");
 });
 
 // -- Connect to DB and start server --
@@ -50,3 +51,16 @@ connectDB()
   .catch((err) => {
     console.error("| Error connecting to MongoDB:", err);
   });
+
+// // Handle unhandled promise rejections
+// process.on('unhandledRejection', (reason, promise) => {
+//   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+//   Sentry.captureException(reason);
+// });
+
+// // Handle uncaught exceptions
+// process.on('uncaughtException', (error) => {
+//   console.error('Uncaught Exception:', error);
+//   Sentry.captureException(error);
+//   process.exit(1);
+// });
